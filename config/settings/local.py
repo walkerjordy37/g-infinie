@@ -3,7 +3,7 @@ Local development settings.
 """
 from .base import *
 
-DEBUG = True
+DEBUG = False
 
 # Use SQLite for local development
 # DATABASES = {
