@@ -2,6 +2,7 @@
 Local development settings.
 """
 from .base import *
+import dj_database_url
 
 DEBUG = False
 
@@ -14,14 +15,9 @@ DEBUG = False
 # }
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'mon_projet_db',
-        'USER': 'admin',
-        'PASSWORD': 'password123',
-        'HOST': '127.0.0.1',
-        'PORT': '5432',
-    }
+     'default': dj_database_url.config(
+        default=os.environ.get('DATABASE_URL')
+    )   
 }
 
 
