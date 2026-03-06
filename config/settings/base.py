@@ -11,7 +11,7 @@ SECRET_KEY = config('SECRET_KEY', default='django-insecure-change-me-in-producti
 
 DEBUG = config('DEBUG', default=False, cast=bool)
 
-ALLOWED_HOSTS = [*]
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 DJANGO_APPS = [
