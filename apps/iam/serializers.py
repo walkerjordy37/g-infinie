@@ -155,20 +155,22 @@ class UserCreateSerializer(serializers.ModelSerializer):
                 code=code,
                 expires_at=tz.now() + timedelta(minutes=30),
             )
-
-            # 6. Send verification email
-            try:
-                from django.core.mail import send_mail
-                send_mail(
-                    subject='G-Infini - Code de vérification',
-                    message=f'Votre code de vérification est : {code}\n\nCe code expire dans 30 minutes.',
-                    from_email=None,
-                    recipient_list=[user.email],
-                    fail_silently=True,
-                )
-            except Exception:
-                pass
-
+            
+            import threading
+            def _send():
+                try:
+                    from django.core.mail import send_mail
+                    send_mail(
+                        subject='G-Infini - Code de vérification',
+                        message=f'Votre code de vérification est : {code}\n\nCe code expire dans 30 minutes.',
+                        from_email=None,
+                        recipient_list=[user.email],
+                        fail_silently=True,
+                    )
+                except Exception:
+                    pass
+            threading.Thread(target=_send).start()
+            
         return user
 
 
